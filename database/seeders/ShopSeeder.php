@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Shop;
 
 class ShopSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class ShopSeeder extends Seeder
      */
     public function run()
     {
-        // ProductFactoryクラスで定義した内容にもとづいてダミーデータを20件生成し、productsテーブルに追加する
+        //ShopFactoryクラスで定義した内容にもとづいてダミーデータを20件生成し、productsテーブルに追加する
         Shop::factory()->count(20)->create();
     }
 }

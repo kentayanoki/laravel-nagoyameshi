@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
-class shop extends Model
+class Shop extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     public function category()
     {
@@ -17,6 +18,10 @@ class shop extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function favorited_users() {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
 }

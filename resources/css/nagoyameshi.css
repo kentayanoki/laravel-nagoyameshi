@@ -1,18 +1,17 @@
 body {
     background-color: #f8fafc;
     font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.11px;
+    letter-spacing: 0.09px;
 }
   
 h1 {
     font-size: 26px;
     font-weight: bold;
-    font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.13px;
@@ -115,4 +114,52 @@ label {
     letter-spacing: normal;
     color: #0af3e7;
 }
+
+
+.nagoyameshi-favorite-button {
+    border-radius: 2px;
+    border: solid 1px #b35bae;
+    background-color: #ffffff;
+}
   
+.text-favorite {
+    color: #e06716;
+}
+
+.nagoyameshi-sidebar-category-label {
+    width: 156px;
+    height: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+}
+
+.nagoyameshi-favorite-add-reserved {
+    border-radius: 2px;
+    color: #ffffff;
+    background-color: #0f12be;
+}
+
+
+.review-score-color {
+    color: #be0f3b;
+}
+  
+.review-score-color:focus {
+    color: #be0f3b;
+}
+
+
+.nagoyameshi-delete-submit-button {
+    border-radius: 2px;
+    color: #ffffff;
+    background-color: #d94b0e;
+}
+
+th, td {
+    background-color: #f8fafc !important;
+}

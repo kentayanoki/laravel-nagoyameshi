@@ -15,27 +15,32 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $major_category_names = [
-            '料理'
+        $major_category_ids = [
+            1,2
         ];
 
         $shop_categories = [
-            '焼肉', '寿司', 'ラーメン', '定食',
-            'カレー', '喫茶店', '中華料理', 'イタリアン料理',
-            'スペイン料理', '韓国料理', '海鮮料理', 'そば',
-            'うどん', 'お好み焼き', 'たこ焼き', '鍋料理',
-            'パン', 'スイーツ', '和食'
+            '焼肉', '寿司', '定食',
+            '喫茶店', '中華料理', 'イタリアン料理',
+            'スペイン料理', '韓国料理', '海鮮料理', 
+            '鍋料理', '和食'
         ];
 
-        foreach ($major_category_names as $major_category_name) {
-            if ($major_category_name == '料理') {
-                foreach ($shop_categories as $shop_category) {
-                    Category::create([
-                        'name' => $shop_category,
-                        'description' => $shop_category,
-                        'major_category_name' => $major_category_name
-                    ]);
-                }
+        $shop2_categories = [
+            'ラーメン', 'カレー', 'そば',
+            'うどん', 'お好み焼き', 'たこ焼き', 
+            'パン', 'スイーツ'
+        ];
+
+        foreach ($major_category_ids as $major_category_id) {
+            $categories = $major_category_id == 1 ? $shop_categories : $shop2_categories;
+            
+            foreach ($categories as $category_name) {
+                Category::create([
+                    'name' => $category_name,
+                    'description' => $category_name,
+                    'major_category_id' => $major_category_id
+                ]);
             }
         }
     }

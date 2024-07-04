@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Cashier\Billable;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Billable;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +26,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'postal_code',
+        'address',
+        'phone'
     ];
 
     /**
@@ -45,5 +53,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function favorite_shops() {
+        return $this->belongsToMany(Shop::class)->withTimestamps();
+    }
+
+    public function PaidUser()
+    {
+        return $this->hasOne(PaidUser::class);
     }
 }

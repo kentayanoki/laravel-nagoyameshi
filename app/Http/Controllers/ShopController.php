@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use App\Models\MajorCategory;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -12,12 +14,32 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $products = Shop::all();
- 
-         return view('shops.index', compact('shops'));
+    public function index(Request $request)
+{
+    $keyword = $request->keyword;
+
+    if ($request->category !== null) {
+        $shops = Shop::where('category_id', $request->category)->paginate(15);
+        $total_count = Shop::where('category_id', $request->category)->count();
+        $category = Category::find($request->category);
+        $major_category = MajorCategory::find($category->major_category_id);
+    } elseif ($keyword !== null) {
+        $shops = Shop::where('name', 'like', "%{$keyword}%")->paginate(15);
+        $total_count = $shops->total();
+        $category = null;
+        $major_category = null;
+    } else {
+        $shops = Shop::paginate(15);
+        $total_count = $shops->total();
+        $category = null;
+        $major_category = null;
     }
+
+    $categories = Category::with('shops')->get();
+    $major_categories = MajorCategory::all();
+
+    return view('shops.index', compact('shops', 'category', 'major_category', 'categories', 'major_categories', 'total_count', 'keyword'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -42,7 +64,6 @@ class ShopController extends Controller
         $shop = new Shop();
         $shop->name = $request->input('name');
         $shop->description = $request->input('description');
-        $shop->price = $request->input('price');
         $shop->save();
  
         return to_route('shops.index');
@@ -84,7 +105,6 @@ class ShopController extends Controller
     {
         $shop->name = $request->input('name');
         $shop->description = $request->input('description');
-        $shop->price = $request->input('price');
         $shop->update();
 
         return to_route('shops.index');
