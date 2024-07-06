@@ -9,10 +9,11 @@ use App\Http\Controllers\ShopController;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $reservations = Reservation::where('user_id', Auth::id())->get();
-        return view('reservations.index', compact('reservations'));
+        
+        return view('reservation.index', compact('reservations'));
     }
 
     public function create($shop_id)
@@ -23,7 +24,7 @@ class ReservationController extends Controller
             return redirect()->route('subscription.create')->with('message', '予約機能は有料会員限定です。');
         }
 
-        return view('reservations.create', compact('shop'));
+        return view('reservation.create', compact('shop'));
     }
 
     public function store(Request $request)

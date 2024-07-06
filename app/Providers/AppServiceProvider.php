@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         Cashier::useCustomerModel(User::class);
+        
         if (App::environment(['production'])) {
             URL::forceScheme('https');
         }
